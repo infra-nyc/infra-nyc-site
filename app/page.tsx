@@ -184,7 +184,7 @@ export default function Home() {
             alt="infra.nyc"
             width={200}
             height={160}
-            className="h-20 w-auto opacity-70"
+            className="h-20 w-auto max-w-[8rem] object-contain opacity-70"
           />
           <p>Private systems community. New York and San Francisco.</p>
         </div>
