@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,12 +36,6 @@ const fields = [
     type: "url",
     placeholder: "https://linkedin.com/in/...",
   },
-  {
-    name: "city",
-    label: "City",
-    type: "text",
-    placeholder: "New York",
-  },
 ];
 
 export function ApplicationForm() {
@@ -50,6 +44,7 @@ export function ApplicationForm() {
   );
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
+  const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -58,7 +53,10 @@ export function ApplicationForm() {
     setErrors({});
 
     const formData = new FormData(event.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = {
+      ...Object.fromEntries(formData.entries()),
+      event_cities: formData.getAll("event_cities"),
+    };
 
     try {
       const response = await fetch("/api/apply", {
@@ -66,11 +64,13 @@ export function ApplicationForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await response.json()) as {
-        ok: boolean;
-        message?: string;
-        errors?: FieldErrors;
-      };
+
+      let data: { ok: boolean; message?: string; errors?: FieldErrors } = { ok: response.ok };
+      try {
+        data = await response.json();
+      } catch {
+        // non-JSON response
+      }
 
       if (!response.ok || !data.ok) {
         setStatus("error");
@@ -80,9 +80,10 @@ export function ApplicationForm() {
       }
 
       setStatus("success");
-      setMessage("Application received. We review new members carefully.");
-      event.currentTarget.reset();
-    } catch {
+      setMessage("You're on the list.");
+      formRef.current?.reset();
+    } catch (err) {
+      console.error("Form submission error:", err);
       setStatus("error");
       setMessage("Something interrupted the submission. Please try again.");
     }
@@ -90,6 +91,7 @@ export function ApplicationForm() {
 
   return (
     <form
+      ref={formRef}
       className="grid gap-5 rounded-lg border border-border bg-card/80 p-5 shadow-soft backdrop-blur md:p-7"
       onSubmit={handleSubmit}
     >
@@ -110,28 +112,26 @@ export function ApplicationForm() {
             ) : null}
           </div>
         ))}
-      </div>
-
-      <div className="grid gap-2">
-        <Label htmlFor="interests">
-          What infrastructure/system problems are you interested in?
-        </Label>
-        <Textarea
-          id="interests"
-          name="interests"
-          placeholder="Scheduling, database internals, observability at scale, GPU orchestration, storage engines..."
-          aria-invalid={Boolean(errors.interests)}
-          required
-        />
-        {errors.interests?.[0] ? (
-          <p className="text-xs text-destructive">{errors.interests[0]}</p>
-        ) : null}
+        <div className="grid gap-2">
+          <Label>Interested in events in</Label>
+          <div className="flex items-center gap-6 h-10">
+            {["NYC", "SF"].map((city) => (
+              <label key={city} className="flex cursor-pointer items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  name="event_cities"
+                  value={city}
+                  className="h-4 w-4 rounded border-border accent-foreground"
+                />
+                {city}
+              </label>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col gap-3 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-md text-sm leading-6 text-muted-foreground">
-          Applications are reviewed for relevance, seniority, and signal.
-        </p>
+
         <Button disabled={status === "loading"} type="submit">
           {status === "loading" ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -140,7 +140,7 @@ export function ApplicationForm() {
           ) : (
             <ArrowRight className="h-4 w-4" />
           )}
-          Apply to join
+          Sign me up
         </Button>
       </div>
 

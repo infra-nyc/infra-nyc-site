@@ -8,13 +8,16 @@ export const applySchema = z.object({
   linkedin: z
     .string()
     .trim()
-    .url("Please include a full LinkedIn URL.")
+    .transform((val) => {
+      if (val && !val.startsWith("http")) return `https://${val}`;
+      return val;
+    })
+    .pipe(z.string().url("Please include a full LinkedIn URL."))
     .refine((value) => value.includes("linkedin.com"), "Please use a LinkedIn URL."),
-  city: z.string().trim().min(2, "Please include your city."),
-  interests: z
-    .string()
-    .trim()
-    .min(24, "Share a little more about the problems you care about."),
+  event_cities: z.union([z.string(), z.array(z.string())]).optional().transform((val) => {
+    if (!val) return "";
+    return Array.isArray(val) ? val.join(", ") : val;
+  }),
 });
 
 export type ApplicationPayload = z.infer<typeof applySchema>;

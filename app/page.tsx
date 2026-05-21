@@ -16,33 +16,39 @@ const companies = [
   "Databricks",
   "Vercel",
   "Ramp",
+  "Motherduck",
+  "Planetscale",
+  "Temporal",
+  "Railway",
+  "Baseten",
+  "Supabase",
+  "turbopuffer",
+  "Antithesis",
+  "Render",
+  "Ona",
+  "Clickhouse",
+  "Materialize",
+  "Cloudflare",
+  "Daytona",
+  "MongoDB",
+  "E2B",
 ];
 
 const gallery = [
   {
-    src: "/gallery/systems-room.svg",
-    alt: "Infra.nyc members gathered around a technical systems discussion",
-    className: "aspect-[4/5]",
-  },
-  {
-    src: "/gallery/lightning-talk.svg",
-    alt: "Lightning talk stage with infrastructure diagrams",
+    src: "/gallery/IMG_6792.jpeg",
+    alt: "Infra.nyc event",
     className: "aspect-[4/3]",
   },
   {
-    src: "/gallery/whiteboard.svg",
-    alt: "Whiteboard notes from a distributed systems conversation",
-    className: "aspect-[3/4]",
+    src: "/gallery/IMG_0504 2.JPG",
+    alt: "Infra.nyc event",
+    className: "aspect-[4/3]",
   },
   {
-    src: "/gallery/networking.svg",
-    alt: "Small group engineering discussion after talks",
-    className: "aspect-[5/4]",
-  },
-  {
-    src: "/gallery/terminal-wall.svg",
-    alt: "Terminal-style event visuals with systems metrics",
-    className: "aspect-[4/5]",
+    src: "/gallery/IMG_2176.JPG",
+    alt: "Infra.nyc event",
+    className: "aspect-[4/3]",
   },
 ];
 
@@ -50,17 +56,17 @@ const values = [
   {
     icon: Braces,
     title: "Lightning talks",
-    body: "Short, technical talks from people building storage layers, inference platforms, schedulers, clouds, and developer infrastructure.",
+    body: "Short technical talks on unsolved systems challenges.",
   },
   {
     icon: Database,
-    title: "Systems conversations",
-    body: "Room-level conversations about reliability, performance, distributed coordination, database internals, cost curves, and what actually worked.",
+    title: "Meet-ups & dinners",
+    body: "Monthly meet-ups in NYC, alongside smaller dinners and gatherings across NYC and SF.",
   },
   {
     icon: Network,
-    title: "Focused network",
-    body: "A warm, private room for senior builders to compare notes, find collaborators, and stay close to the frontier without the noise.",
+    title: "The network",
+    body: "A private network of senior engineers, engineering leaders, and technical founders.",
   },
 ];
 
@@ -77,104 +83,65 @@ export default function Home() {
             infra.nyc
           </Link>
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-            <Link className="transition-colors hover:text-foreground" href="#community">
-              Community
-            </Link>
+
             <Link className="transition-colors hover:text-foreground" href="#events">
               Events
             </Link>
             <Link className="transition-colors hover:text-foreground" href="#apply">
-              Apply
+              Join
             </Link>
           </nav>
-          <Button asChild size="sm">
-            <Link href="#apply">Apply to join</Link>
-          </Button>
+
         </div>
       </header>
 
       <section
         id="top"
-        className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-end px-5 pb-16 pt-32 md:px-8 md:pb-20"
+        className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-end px-5 pb-10 pt-32 md:px-8 md:pb-14"
       >
-        <div className="absolute inset-x-5 top-24 -z-10 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent md:inset-x-8" />
-        <Reveal className="max-w-6xl">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
-            Private infrastructure room
-          </div>
-          <h1 className="text-balance text-5xl font-semibold leading-[0.96] tracking-normal text-foreground md:text-7xl lg:text-8xl">
-            A private community of 3,000+ senior systems engineers, engineering
-            leaders, and technical founders.
+        <Reveal className="max-w-5xl">
+          <h1 className="text-balance text-5xl font-semibold leading-[0.94] tracking-tight text-foreground md:text-7xl lg:text-[5.5rem]">
+            Where systems engineers meet.
           </h1>
-        </Reveal>
-        <Reveal
-          className="mt-8 grid gap-8 border-t border-border pt-8 md:grid-cols-[1fr_0.72fr]"
-          transition={{ delay: 0.08 }}
-        >
-          <p className="max-w-3xl text-lg leading-8 text-muted-foreground md:text-xl">
-            infra.nyc convenes the people building infrastructure, distributed
-            systems, AI infra, databases, cloud platforms, and developer tools.
-            The signal is technical, the room is private, and the standard is
-            unusually high.
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            Private monthly events for people building the future of software infrastructure.
           </p>
-          <div className="flex flex-col gap-4 md:items-end">
+          <div className="mt-10">
             <Button asChild size="lg">
               <Link href="#apply">
-                Apply to join
+                Join
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-            <p className="max-w-xs text-sm leading-6 text-muted-foreground md:text-right">
-              Membership is reviewed. No spectators, no vendor theater, no empty
-              panels.
-            </p>
+          </div>
+        </Reveal>
+        <Reveal transition={{ delay: 0.1 }} className="mt-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          <div className="marquee-track">
+            {[...companies, ...companies].map((company, i) => (
+              <span
+                key={i}
+                className="mx-6 font-mono text-sm text-muted-foreground/60 whitespace-nowrap"
+              >
+                {company}
+              </span>
+            ))}
           </div>
         </Reveal>
       </section>
 
-      <section
-        id="community"
-        className="border-y border-border bg-card/45 py-16 md:py-20"
-      >
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <Reveal className="grid gap-10 md:grid-cols-[0.62fr_1fr] md:items-end">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                Community proof
-              </p>
-              <h2 className="mt-4 max-w-xl text-3xl font-semibold leading-tight md:text-5xl">
-                Builders from the teams shaping modern infrastructure.
-              </h2>
-            </div>
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3">
-              {companies.map((company) => (
-                <div
-                  className="flex h-24 items-center justify-center bg-background px-4 text-center font-mono text-sm text-foreground/80 transition-colors hover:bg-secondary"
-                  key={company}
-                >
-                  {company}
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
-      <section id="events" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+
+      <section id="events" className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <Reveal className="mb-12 grid gap-6 md:grid-cols-[0.9fr_0.7fr] md:items-end">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              In the room
-            </p>
+
             <h2 className="mt-4 text-4xl font-semibold leading-tight md:text-6xl">
-              Technical nights with texture, constraint, and edge.
+              Discuss real systems problems.
             </h2>
           </div>
           <p className="text-lg leading-8 text-muted-foreground">
-            Events are built for people who would rather talk about queueing,
-            isolation levels, GPU scheduling, incident lessons, and durable
-            company-building than listen to a polished sales story.
+            Monthly meet-up with technical talks in NYC.<br />
+            Smaller dinners and meet-ups across NYC and SF.
           </p>
         </Reveal>
 
@@ -193,7 +160,7 @@ export default function Home() {
                   alt={image.alt}
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover"
+                  className="object-cover grayscale"
                   loading={index === 0 ? "eager" : "lazy"}
                   priority={index === 0}
                 />
@@ -203,40 +170,21 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-foreground text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-px bg-primary-foreground/15 md:grid-cols-3">
-          {values.map((item) => (
-            <Reveal
-              className="bg-foreground px-5 py-10 md:px-8 md:py-14"
-              key={item.title}
-            >
-              <item.icon className="mb-8 h-5 w-5" />
-              <h3 className="text-2xl font-semibold">{item.title}</h3>
-              <p className="mt-4 leading-7 text-primary-foreground/70">
-                {item.body}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+
 
       <section id="apply" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
         <div className="grid gap-10 lg:grid-cols-[0.76fr_1fr] lg:items-start">
           <Reveal>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Apply
-            </p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight md:text-6xl">
-              Join the room where infrastructure gets specific.
+            <h2 className="text-4xl font-semibold leading-tight md:text-6xl">
+              Join infra.nyc.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Tell us what you build, what problems you keep returning to, and
-              where your work sits in the stack. The strongest applications are
-              precise.
+            <p className="mt-4 text-lg leading-8 text-muted-foreground">
+              Weekly updates on upcoming events and what's happening across the infra.nyc community.
             </p>
+
             <div className="mt-8 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
               <ArrowDownRight className="h-4 w-4" />
-              Reviewed on a rolling basis
+              Event attendance is curated
             </div>
           </Reveal>
           <Reveal transition={{ delay: 0.08 }}>
@@ -248,7 +196,7 @@ export default function Home() {
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between md:px-8">
           <p className="font-mono tracking-[0.16em]">infra.nyc</p>
-          <p>Private systems community. New York signal, internet scale.</p>
+          <p>Private systems community. New York and San Francisco.</p>
         </div>
       </footer>
     </main>
