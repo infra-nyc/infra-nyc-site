@@ -124,8 +124,7 @@ export default function Home() {
             </h2>
           </div>
           <p className="text-lg leading-8 text-muted-foreground">
-            Monthly meet-up with technical talks in NYC.<br />
-            Smaller dinners and meet-ups across NYC and SF.
+            Monthly meet-up with technical talks in NYC. Smaller dinners and meet-ups across NYC and SF.
           </p>
         </Reveal>
 
