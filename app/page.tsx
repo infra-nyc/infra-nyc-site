@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownRight, ArrowRight, Braces, Database, Network } from "lucide-react";
+import { ArrowDownRight, ArrowRight } from "lucide-react";
 
 import { ApplicationForm } from "@/components/application-form";
 import { Reveal } from "@/components/reveal";
@@ -52,23 +52,6 @@ const gallery = [
   },
 ];
 
-const values = [
-  {
-    icon: Braces,
-    title: "Lightning talks",
-    body: "Short technical talks on unsolved systems challenges.",
-  },
-  {
-    icon: Database,
-    title: "Meet-ups & dinners",
-    body: "Monthly meet-ups in NYC, alongside smaller dinners and gatherings across NYC and SF.",
-  },
-  {
-    icon: Network,
-    title: "The network",
-    body: "A private network of senior engineers, engineering leaders, and technical founders.",
-  },
-];
 
 export default function Home() {
   return (
@@ -179,7 +162,7 @@ export default function Home() {
               Join infra.nyc.
             </h2>
             <p className="mt-4 text-lg leading-8 text-muted-foreground">
-              Weekly updates on upcoming events and what's happening across the infra.nyc community.
+              Weekly updates on upcoming events and what&apos;s happening across the infra.nyc community.
             </p>
 
             <div className="mt-8 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
