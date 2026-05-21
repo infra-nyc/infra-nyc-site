@@ -50,8 +50,7 @@ async function saveToAirtable(application: StoredApplication) {
               Company: application.company,
               Role: application.role,
               LinkedIn: application.linkedin,
-              City: application.city,
-              Interests: application.interests,
+              "Event Cities": application.event_cities ?? "",
             },
           },
         ],
@@ -68,7 +67,7 @@ async function saveToGoogleSheets(application: StoredApplication) {
   const token = await getGoogleAccessToken();
   const tab = encodeURIComponent(process.env.GOOGLE_SHEET_TAB ?? "Applications");
   const response = await fetch(
-    `${SHEETS_URL}/${process.env.GOOGLE_SHEET_ID}/values/${tab}!A:H:append?valueInputOption=USER_ENTERED`,
+    `${SHEETS_URL}/${process.env.GOOGLE_SHEET_ID}/values/${tab}!A:G:append?valueInputOption=USER_ENTERED`,
     {
       method: "POST",
       headers: {
@@ -84,8 +83,7 @@ async function saveToGoogleSheets(application: StoredApplication) {
             application.company,
             application.role,
             application.linkedin,
-            application.city,
-            application.interests,
+            application.event_cities ?? "",
           ],
         ],
       }),
