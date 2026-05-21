@@ -60,7 +60,7 @@ export default function Home() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
           <Link
             href="#top"
-            className="font-mono text-sm font-semibold tracking-[0.18em]"
+            className="text-lg font-semibold tracking-wide"
             aria-label="infra.nyc home"
           >
             infra.nyc
@@ -80,10 +80,10 @@ export default function Home() {
 
       <section
         id="top"
-        className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-end px-5 pb-10 pt-32 md:px-8 md:pb-14"
+        className="relative mx-auto flex max-w-7xl flex-col px-5 pb-10 pt-36 md:px-8 md:pb-14"
       >
         <Reveal className="max-w-5xl">
-          <h1 className="text-balance text-5xl font-semibold leading-[0.94] tracking-tight text-foreground md:text-7xl lg:text-[5.5rem]">
+          <h1 className="text-balance text-5xl font-semibold leading-[0.94] tracking-tight text-foreground md:text-7xl lg:text-[7rem]">
             Where systems engineers meet.
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
@@ -98,7 +98,9 @@ export default function Home() {
             </Button>
           </div>
         </Reveal>
-        <Reveal transition={{ delay: 0.1 }} className="mt-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+        <Reveal transition={{ delay: 0.1 }} className="mt-12">
+          <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground/50">Members from</p>
+          <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="marquee-track">
             {[...companies, ...companies].map((company, i) => (
               <span
@@ -109,10 +111,9 @@ export default function Home() {
               </span>
             ))}
           </div>
+          </div>
         </Reveal>
       </section>
-
-
 
       <section id="events" className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <Reveal className="mb-12 grid gap-6 md:grid-cols-[0.9fr_0.7fr] md:items-end">
@@ -178,7 +179,13 @@ export default function Home() {
 
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between md:px-8">
-          <p className="font-mono tracking-[0.16em]">infra.nyc</p>
+          <Image
+            src="/gallery/infra-nyc-logo.png"
+            alt="infra.nyc"
+            width={200}
+            height={160}
+            className="h-20 w-auto opacity-70"
+          />
           <p>Private systems community. New York and San Francisco.</p>
         </div>
       </footer>
