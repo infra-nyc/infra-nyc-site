@@ -172,6 +172,15 @@ export default function Home() {
           </Reveal>
           <Reveal transition={{ delay: 0.08 }}>
             <ApplicationForm />
+            <p className="mt-4 text-sm text-muted-foreground">
+              Questions or event sponsorship?{" "}
+              <a
+                href="mailto:megan@infra.community"
+                className="underline underline-offset-2 hover:text-foreground transition-colors"
+              >
+                megan@infra.community
+              </a>
+            </p>
           </Reveal>
         </div>
       </section>
