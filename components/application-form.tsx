@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+const FALLBACK_FORM_URL = "https://forms.gle/T79KScxRMrv3Y9Kp7";
+
 type FieldErrors = Partial<Record<string, string[]>>;
 
 const fields = [
@@ -42,6 +44,7 @@ export function ApplicationForm() {
     "idle",
   );
   const [message, setMessage] = useState("");
+  const [showFallback, setShowFallback] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -49,6 +52,7 @@ export function ApplicationForm() {
     event.preventDefault();
     setStatus("loading");
     setMessage("");
+    setShowFallback(false);
     setErrors({});
 
     const formData = new FormData(event.currentTarget);
@@ -64,7 +68,7 @@ export function ApplicationForm() {
         body: JSON.stringify(payload),
       });
 
-      let data: { ok: boolean; message?: string; errors?: FieldErrors } = { ok: response.ok };
+      let data: { ok: boolean; message?: string; errors?: FieldErrors; fallback?: boolean } = { ok: response.ok };
       try {
         data = await response.json();
       } catch {
@@ -75,6 +79,7 @@ export function ApplicationForm() {
         setStatus("error");
         setMessage(data.message ?? "Please review your application.");
         setErrors(data.errors ?? {});
+        setShowFallback(data.fallback ?? false);
         return;
       }
 
@@ -85,6 +90,7 @@ export function ApplicationForm() {
       console.error("Form submission error:", err);
       setStatus("error");
       setMessage("Something interrupted the submission. Please try again.");
+      setShowFallback(true);
     }
   }
 
@@ -144,16 +150,31 @@ export function ApplicationForm() {
       </div>
 
       {message ? (
-        <p
-          className={
-            status === "success"
-              ? "text-sm text-foreground"
-              : "text-sm text-destructive"
-          }
-          role="status"
-        >
-          {message}
-        </p>
+        <div role="status" className="grid gap-1">
+          <p
+            className={
+              status === "success"
+                ? "text-sm text-foreground"
+                : "text-sm text-destructive"
+            }
+          >
+            {message}
+          </p>
+          {showFallback ? (
+            <p className="text-sm text-muted-foreground">
+              You can also apply via{" "}
+              <a
+                href={FALLBACK_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-foreground transition-colors"
+              >
+                this form
+              </a>
+              .
+            </p>
+          ) : null}
+        </div>
       ) : null}
     </form>
   );

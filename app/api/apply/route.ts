@@ -29,12 +29,21 @@ export async function POST(request: Request) {
       );
     }
 
-    console.error("Application submission failed", error);
+    const isBackendMisconfigured =
+      error instanceof Error &&
+      error.message.includes("Application backend is not configured");
+
+    if (isBackendMisconfigured) {
+      console.error("Application backend not configured:", error.message);
+    } else {
+      console.error("Application submission failed", error);
+    }
 
     return NextResponse.json(
       {
         ok: false,
-        message: "We could not submit your application. Please try again.",
+        message: "We could not submit your application right now.",
+        fallback: true,
       },
       { status: 500 },
     );

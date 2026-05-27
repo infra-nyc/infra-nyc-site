@@ -1,0 +1,15 @@
+tasks:
+  install:
+    name: Install dependencies
+    command: npm install
+    triggeredBy:
+      - postDevcontainerStart
+
+services:
+  dev:
+    name: Next.js dev server
+    commands:
+      start: npm run dev
+      ready: curl -sf http://localhost:3000
+    triggeredBy:
+      - postEnvironmentStart
