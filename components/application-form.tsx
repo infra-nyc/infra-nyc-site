@@ -169,7 +169,7 @@ export function ApplicationForm() {
                 rel="noopener noreferrer"
                 className="underline underline-offset-2 hover:text-foreground transition-colors"
               >
-                this form
+                {FALLBACK_FORM_URL}
               </a>
               .
             </p>
