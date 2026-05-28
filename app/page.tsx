@@ -66,12 +66,14 @@ export default function Home() {
             infra.nyc
           </Link>
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-
             <Link className="transition-colors hover:text-foreground" href="#events">
               Events
             </Link>
             <Link className="transition-colors hover:text-foreground" href="#apply">
               Join
+            </Link>
+            <Link className="transition-colors hover:text-foreground" href="/jobs">
+              Jobs
             </Link>
           </nav>
 
