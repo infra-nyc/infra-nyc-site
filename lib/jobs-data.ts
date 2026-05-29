@@ -29,7 +29,7 @@ export const jobs: Job[] = [
     compensation: "$200k–$350k + equity",
     seniority: "Senior / Staff",
     stage: "Series C",
-    stack: "Linux kernel, file systems, containers, Rust",
+    stack: "Linux, File Systems, Containers, Rust",
     whyInteresting:
       "Greenfield infra work on a platform that's genuinely rethinking how compute is provisioned. Small team, high ownership, real systems problems. Quietly building one of the best engineering teams in NYC.",
     roleUrl: "https://jobs.ashbyhq.com/modal/9b33ebe7-e829-4f03-97ba-5c94dbd7daf6",
@@ -143,7 +143,7 @@ export const jobs: Job[] = [
     compensation: "",
     seniority: "Senior",
     stage: "Series B",
-    stack: "Golang, Distributed Systems, Linux, Postgres, Networking",
+    stack: "Go, Distributed Systems, Linux, Postgres, Networking",
     whyInteresting:
       "Small team with massive reach — 2M+ users and weekly releases. The engineering culture is direct, fast, and serious about craft. Real infrastructure problems at real scale without the overhead of a large org.",
     roleUrl: "https://railway.com/careers/infra-platform",
@@ -190,7 +190,7 @@ export const jobs: Job[] = [
     compensation: "$280k–$380k + equity",
     seniority: "Principal",
     stage: "Series B",
-    stack: "Firecracker, Linux Internals, Ceph, eBPF",
+    stack: "Firecracker, Linux, Ceph, eBPF",
     whyInteresting:
       "Rare chance to work on deep infrastructure problems at real scale: bare metal orchestration, Firecracker VMs, distributed scheduling, and petabyte-scale storage systems. The company is now extending that infrastructure into agent sandboxes and AI coding systems.",
     roleUrl: "https://jobs.ashbyhq.com/Blacksmith/7f13567d-a9ab-4231-b439-99b84584257f",
@@ -214,7 +214,7 @@ export const jobs: Job[] = [
     compensation: "Senior $200k–$250k · Staff $250k–$300k + equity",
     seniority: "Senior / Staff",
     stage: "Series A",
-    stack: "Kubernetes, Distributed Systems, TypeScript, AI-Native Development",
+    stack: "Kubernetes, Distributed Systems, TypeScript",
     whyInteresting:
       "Production operations is one of the last high-leverage surfaces AI hasn't fully touched. Antimetal is building the autonomous layer between engineering teams and running systems — a world model that persists, learns, and acts.",
     roleUrl: "https://jobs.ashbyhq.com/antimetal/f7619c4a-8e35-4b70-875b-0586a93c9a54",
@@ -237,7 +237,7 @@ export const jobs: Job[] = [
     compensation: "$170k–$250k + equity",
     seniority: "Mid / Senior",
     stage: "Pre-Seed",
-    stack: "Rust, Linux, Multi-cloud, Tauri, Sandboxing",
+    stack: "Rust, Linux, Multi-cloud, Sandboxing",
     whyInteresting:
       "Empathic is building the trust and coordination layer for AI coding agents: sandboxing, collaboration, and control as engineering teams adopt increasingly autonomous systems. Rare opportunity to join a deeply technical team as a founding engineer and help shape the company from the ground up.",
     roleUrl: "https://empathic.dev/careers/",
