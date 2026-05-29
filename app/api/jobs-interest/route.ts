@@ -51,6 +51,8 @@ async function saveToGoogleSheets(payload: {
   const sheetId = process.env.GOOGLE_SHEET_ID;
   const tab = encodeURIComponent(process.env.JOBS_GOOGLE_SHEET_TAB ?? "Jobs");
 
+  console.log(`[jobs-interest] sheetId=${sheetId} tab=${tab}`);
+
   if (!sheetId) throw new Error("GOOGLE_SHEET_ID is not configured.");
 
   const res = await fetch(
@@ -75,7 +77,7 @@ async function saveToGoogleSheets(payload: {
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`Google Sheets append failed (${res.status}): ${text}`);
+    throw new Error(`Google Sheets append failed (${res.status}) sheetId=${sheetId} tab=${tab}: ${text}`);
   }
 }
 
