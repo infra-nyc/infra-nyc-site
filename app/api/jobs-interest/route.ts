@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
-import { Resend } from "resend";
 
 import { jobsInterestSchema } from "@/lib/jobs-interest-schema";
 
 export const runtime = "nodejs";
 
-const RECIPIENT = "megan@infra.community";
+const SHEETS_URL = "https://sheets.googleapis.com/v4/spreadsheets";
 
 export async function POST(request: Request) {
   try {
@@ -14,31 +13,11 @@ export async function POST(request: Request) {
     const payload = jobsInterestSchema.parse(body);
 
     const timestamp = new Date().toISOString();
-    const rolesText = payload.selectedRoles
-      .map((r) => `  • ${r.company} — ${r.role}`)
-      .join("\n");
+    const rolesStr = payload.selectedRoles
+      .map((r) => `${r.company} — ${r.role}`)
+      .join("; ");
 
-    // Send email via Resend if configured
-    const resendKey = process.env.RESEND_API_KEY;
-    if (resendKey) {
-      const resend = new Resend(resendKey);
-      await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL ?? "jobs@infra.nyc",
-        to: RECIPIENT,
-        subject: `Jobs interest — ${payload.selectedRoles.map((r) => r.company).join(", ")}`,
-        text: buildEmailText({ ...payload, timestamp, rolesText }),
-        html: buildEmailHtml({ ...payload, timestamp, rolesText }),
-      });
-    } else {
-      // Log to console in development when Resend is not configured
-      console.log("[jobs-interest] Submission (Resend not configured):");
-      console.log(buildEmailText({ ...payload, timestamp, rolesText }));
-    }
-
-    // Optionally store in Airtable if configured
-    if (process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID) {
-      await saveToAirtable({ ...payload, timestamp });
-    }
+    await saveToGoogleSheets({ ...payload, timestamp, rolesStr });
 
     return NextResponse.json({ ok: true });
   } catch (error) {
@@ -59,6 +38,113 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
+}
+
+async function saveToGoogleSheets(payload: {
+  linkedin: string;
+  email: string;
+  note: string;
+  timestamp: string;
+  rolesStr: string;
+}) {
+  const token = await getGoogleAccessToken();
+  const sheetId = process.env.GOOGLE_JOBS_SHEET_ID;
+  const tab = encodeURIComponent(process.env.GOOGLE_JOBS_SHEET_TAB ?? "Sheet1");
+
+  if (!sheetId) throw new Error("GOOGLE_JOBS_SHEET_ID is not configured.");
+
+  const res = await fetch(
+    `${SHEETS_URL}/${sheetId}/values/${tab}!A:E:append?valueInputOption=USER_ENTERED`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        values: [[
+          payload.timestamp,
+          payload.linkedin,
+          payload.email,
+          payload.rolesStr,
+          payload.note,
+        ]],
+      }),
+    },
+  );
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Google Sheets append failed (${res.status}): ${text}`);
+  }
+}
+
+async function getGoogleAccessToken(): Promise<string> {
+  const now = Math.floor(Date.now() / 1000);
+  const header = base64UrlEncode(JSON.stringify({ alg: "RS256", typ: "JWT" }));
+  const claim = base64UrlEncode(
+    JSON.stringify({
+      iss: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      scope: "https://www.googleapis.com/auth/spreadsheets",
+      aud: "https://oauth2.googleapis.com/token",
+      exp: now + 3600,
+      iat: now,
+    }),
+  );
+
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+  if (!privateKey) throw new Error("GOOGLE_PRIVATE_KEY is not configured.");
+
+  const signatureInput = `${header}.${claim}`;
+  const key = await crypto.subtle.importKey(
+    "pkcs8",
+    pemToArrayBuffer(privateKey),
+    { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signature = await crypto.subtle.sign(
+    "RSASSA-PKCS1-v1_5",
+    key,
+    new TextEncoder().encode(signatureInput),
+  );
+  const assertion = `${signatureInput}.${base64UrlEncode(signature)}`;
+
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion,
+    }),
+  });
+
+  if (!res.ok) throw new Error(`Google auth failed (${res.status})`);
+
+  const data = (await res.json()) as { access_token?: string };
+  if (!data.access_token) throw new Error("No access token returned from Google.");
+  return data.access_token;
+}
+
+function pemToArrayBuffer(pem: string): ArrayBuffer {
+  const base64 = pem
+    .replace("-----BEGIN PRIVATE KEY-----", "")
+    .replace("-----END PRIVATE KEY-----", "")
+    .replace(/\s/g, "");
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes.buffer;
+}
+
+function base64UrlEncode(input: string | ArrayBuffer): string {
+  const bytes =
+    typeof input === "string"
+      ? new TextEncoder().encode(input)
+      : new Uint8Array(input);
+  let binary = "";
+  bytes.forEach((b) => (binary += String.fromCharCode(b)));
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 type EmailData = {
