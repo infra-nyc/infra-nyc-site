@@ -75,9 +75,11 @@ async function saveToGoogleSheets(payload: {
     },
   );
 
+  const responseText = await res.text();
+  console.log(`[jobs-interest] Sheets response (${res.status}): ${responseText}`);
+
   if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Google Sheets append failed (${res.status}) sheetId=${sheetId} tab=${tab}: ${text}`);
+    throw new Error(`Google Sheets append failed (${res.status}) sheetId=${sheetId} tab=${tab}: ${responseText}`);
   }
 }
 
