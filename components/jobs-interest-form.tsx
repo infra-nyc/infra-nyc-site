@@ -64,7 +64,7 @@ export function JobsInterestForm({ selectedJobs }: Props) {
       }
 
       setStatus("success");
-      setMessage("Thanks — I'll take a look and follow up if there's a strong match.");
+      setMessage("Thanks — I'll take a look and follow up if there's a right fit.");
     } catch {
       setStatus("error");
       setMessage("Something interrupted the submission. Please try again or message megan@infra.community.");
