@@ -16,7 +16,8 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
 
   return (
     <article
-      className={`group relative flex flex-col rounded-xl border bg-card/80 transition-all duration-200 hover:shadow-soft ${
+      onClick={() => onToggle(job.id)}
+      className={`group relative flex cursor-pointer flex-col rounded-xl border bg-card/80 transition-all duration-200 hover:shadow-soft ${
         selected
           ? "border-foreground/40 shadow-soft"
           : "border-border hover:border-border/80"
@@ -30,6 +31,7 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
               href={job.companyUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="font-semibold text-foreground transition-opacity hover:opacity-70"
             >
               {job.company}
@@ -64,7 +66,6 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
                 ? "border-foreground bg-foreground text-primary-foreground"
                 : "border-border bg-card hover:border-foreground/50"
             }`}
-            onClick={() => onToggle(job.id)}
           >
             {selected && (
               <svg
@@ -118,7 +119,7 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
       <div className="mx-5 mb-5 mt-1 rounded-lg border border-border/50 bg-muted/40 md:mx-6 md:mb-6">
         <button
           type="button"
-          onClick={() => setCaseOpen((o) => !o)}
+          onClick={(e) => { e.stopPropagation(); setCaseOpen((o) => !o); }}
           className="flex w-full items-center justify-between px-4 py-3 text-left"
         >
           <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/50">
@@ -144,7 +145,7 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
       <div className="mt-auto flex items-center justify-between border-t border-border/60 px-5 py-3 md:px-6">
         <button
           type="button"
-          onClick={() => onToggle(job.id)}
+          onClick={(e) => { e.stopPropagation(); onToggle(job.id); }}
           className={`text-xs font-medium transition-colors ${
             selected
               ? "text-foreground"
@@ -157,6 +158,7 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
           href={job.careersUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
           className="flex items-center gap-1 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
         >
           View all roles
