@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, MapPin, DollarSign, Layers } from "lucide-react";
+import { ArrowUpRight, ChevronDown, DollarSign, Layers, MapPin } from "lucide-react";
 import type { Job } from "@/lib/jobs-data";
 
 type JobCardProps = {
@@ -11,6 +12,8 @@ type JobCardProps = {
 };
 
 export function JobCard({ job, selected, onToggle }: JobCardProps) {
+  const [caseOpen, setCaseOpen] = useState(false);
+
   return (
     <article
       className={`group relative flex flex-col rounded-xl border bg-card/80 transition-all duration-200 hover:shadow-soft ${
@@ -112,18 +115,29 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
       </div>
 
       {/* Investment case */}
-      <div className="mx-5 mb-5 mt-1 rounded-lg border border-border/50 bg-muted/40 px-4 py-3 md:mx-6 md:mb-6">
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/50">
-          Investment case
-        </p>
-        <ul className="space-y-1.5">
-          {job.investmentCase.map((point, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
-              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-muted-foreground/40" />
-              {point}
-            </li>
-          ))}
-        </ul>
+      <div className="mx-5 mb-5 mt-1 rounded-lg border border-border/50 bg-muted/40 md:mx-6 md:mb-6">
+        <button
+          type="button"
+          onClick={() => setCaseOpen((o) => !o)}
+          className="flex w-full items-center justify-between px-4 py-3 text-left"
+        >
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/50">
+            Investment case
+          </span>
+          <ChevronDown
+            className={`h-3 w-3 text-muted-foreground/40 transition-transform duration-200 ${caseOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+        {caseOpen && (
+          <ul className="space-y-1.5 px-4 pb-3">
+            {job.investmentCase.map((point, i) => (
+              <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-muted-foreground/40" />
+                {point}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Footer */}

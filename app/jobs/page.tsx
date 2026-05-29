@@ -6,7 +6,7 @@ import { jobs } from "@/lib/jobs-data";
 import { JobsBoard } from "@/components/jobs-board";
 
 export const metadata: Metadata = {
-  title: "Infra companies hiring",
+  title: "infra.nyc jobs",
   description:
     "A curated list of high-signal infrastructure and AI systems companies hiring senior technical talent.",
   alternates: {
@@ -53,10 +53,10 @@ export default function JobsPage() {
         {/* Page header */}
         <div className="mb-14">
           <h1 className="text-4xl font-semibold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
-            Infra companies hiring
+            infra.nyc jobs
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            A curated list of high-signal infrastructure and AI systems companies hiring senior technical talent.
+            Handpicked roles at some of the most technically ambitious infrastructure and AI systems companies in the world. Built in NYC.
           </p>
           <p className="mt-2 text-sm text-muted-foreground/70">
             Select roles below and scroll to the bottom to express interest.
