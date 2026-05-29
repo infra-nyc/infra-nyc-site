@@ -175,6 +175,14 @@ export default function Home() {
           <Reveal transition={{ delay: 0.08 }}>
             <ApplicationForm />
             <p className="mt-4 text-sm text-muted-foreground">
+              <Link
+                href="/jobs"
+                className="transition-colors hover:text-foreground"
+              >
+                Looking for a role? Browse open positions →
+              </Link>
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
               Questions or event sponsorship?{" "}
               <a
                 href="mailto:megan@infra.community"
