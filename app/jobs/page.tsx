@@ -56,7 +56,7 @@ export default function JobsPage() {
             infra.nyc jobs
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Handpicked roles at some of the most technically ambitious infrastructure and AI systems companies in the world. Built in NYC.
+            Handpicked roles at some of the most technically ambitious infrastructure and AI companies in the world. Built in NYC.
           </p>
           <p className="mt-2 text-sm text-muted-foreground/70">
             Select roles below and scroll to the bottom to express interest.
