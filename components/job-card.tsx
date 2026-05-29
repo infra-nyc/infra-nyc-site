@@ -87,7 +87,15 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
       {/* Role info */}
       <div className="border-t border-border/60 px-5 py-3 md:px-6">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
-          <span className="text-sm font-medium text-foreground">{job.role}</span>
+          <a
+            href={job.roleUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="text-sm font-medium text-foreground transition-opacity hover:opacity-70"
+          >
+            {job.role}
+          </a>
           <span className="flex items-center gap-1 font-mono text-xs text-muted-foreground">
             <MapPin className="h-3 w-3 shrink-0" />
             {job.location}
