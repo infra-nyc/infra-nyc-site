@@ -48,10 +48,10 @@ async function saveToGoogleSheets(payload: {
   rolesStr: string;
 }) {
   const token = await getGoogleAccessToken();
-  const sheetId = process.env.GOOGLE_JOBS_SHEET_ID;
-  const tab = encodeURIComponent(process.env.GOOGLE_JOBS_SHEET_TAB ?? "Sheet1");
+  const sheetId = process.env.GOOGLE_SHEET_ID;
+  const tab = encodeURIComponent(process.env.JOBS_GOOGLE_SHEET_TAB ?? "Jobs");
 
-  if (!sheetId) throw new Error("GOOGLE_JOBS_SHEET_ID is not configured.");
+  if (!sheetId) throw new Error("GOOGLE_SHEET_ID is not configured.");
 
   const res = await fetch(
     `${SHEETS_URL}/${sheetId}/values/${tab}!A:E:append?valueInputOption=USER_ENTERED`,
