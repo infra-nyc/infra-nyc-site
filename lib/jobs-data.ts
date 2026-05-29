@@ -98,7 +98,7 @@ export const jobs: Job[] = [
     compensation: "$190k–$220k + equity",
     seniority: "Mid / Senior",
     stage: "Pre-Seed",
-    stack: "Dev Infra, Rust, Observability, Git Internals",
+    stack: "Rust, Observability, Git Internals",
     whyInteresting:
       "Git AI is building the observability layer for the AI software factory, helping engineering teams understand, measure, and improve how coding agents operate in production. Opportunity to join two exited founders with strong product-market fit as a founding engineer.",
     roleUrl: "https://usegitai.com/jobs/founding-engineer",
