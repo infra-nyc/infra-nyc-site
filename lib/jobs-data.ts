@@ -193,7 +193,7 @@ export const jobs: Job[] = [
     stack: "Firecracker, Linux, Ceph, eBPF",
     whyInteresting:
       "Rare chance to work on deep infrastructure problems at real scale: bare metal orchestration, Firecracker VMs, distributed scheduling, and petabyte-scale storage systems. The company is now extending that infrastructure into agent sandboxes and AI coding systems.",
-    roleUrl: "https://jobs.ashbyhq.com/Blacksmith/7f13567d-a9ab-4231-b439-99b84584257f",
+    roleUrl: "https://jobs.ashbyhq.com/Blacksmith/12926992-4e84-4730-88af-f67d5fbc0b2b",
     investmentCase: [
       "Strong technical differentiation through owning and operating a global bare-metal fleet rather than renting generic cloud infrastructure",
       "Proven execution: >$10M ARR in under 2 years serving 2,000+ companies",

@@ -59,7 +59,8 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
         >
           <span className="sr-only">I&apos;m interested</span>
           <div
-            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-colors ${
+            onClick={() => onToggle(job.id)}
+            className={`flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded border transition-colors ${
               selected
                 ? "border-foreground bg-foreground text-primary-foreground"
                 : "border-border bg-card hover:border-foreground/50"
