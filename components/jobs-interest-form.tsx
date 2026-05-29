@@ -93,8 +93,7 @@ export function JobsInterestForm({ selectedJobs }: Props) {
           Interested in one or more roles?
         </h2>
         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-          Share your background and I&apos;ll follow up directly if there&apos;s a strong match.
-          This doesn&apos;t replace applying — each card links directly to the role.
+          Share your background and if there&apos;s a strong fit, I&apos;ll follow up and make an intro directly to the founders or hiring manager. You can also apply directly, I&apos;ve added links for each role.
         </p>
       </div>
 
@@ -160,7 +159,7 @@ export function JobsInterestForm({ selectedJobs }: Props) {
         <Textarea
           id="note"
           name="note"
-          placeholder="Briefly share your background, relevant systems/infrastructure experience, or why this role caught your attention."
+          placeholder="Briefly share your background, relevant engineering experience, or why this role or company caught your attention."
           required
           minLength={20}
           disabled={!hasSelection || status === "loading"}

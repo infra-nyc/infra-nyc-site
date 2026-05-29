@@ -56,12 +56,12 @@ export default function JobsPage() {
             Infra companies hiring
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            A curated list of high-signal infrastructure and AI systems companies
-            hiring senior technical talent.
+            A curated list of high-signal infrastructure and AI systems companies hiring senior technical talent.
           </p>
-          <p className="mt-2 font-mono text-xs text-muted-foreground/50">
-            Curated by infra.nyc
+          <p className="mt-2 text-sm text-muted-foreground/70">
+            Select roles below and scroll to the bottom to express interest.
           </p>
+
         </div>
 
         {/* Jobs board — client component handles selection state */}

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowUpRight, MapPin, DollarSign, Layers } from "lucide-react";
 import type { Job } from "@/lib/jobs-data";
 
@@ -22,11 +23,26 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
       <div className="flex items-start justify-between gap-4 p-5 pb-4 md:p-6 md:pb-4">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2.5">
-            <span className="font-semibold text-foreground">{job.company}</span>
+            <Link
+              href={job.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-foreground transition-opacity hover:opacity-70"
+            >
+              {job.company}
+            </Link>
             <span className="hidden h-1 w-1 rounded-full bg-muted-foreground/40 sm:block" />
             <span className="hidden font-mono text-xs text-muted-foreground/60 sm:block">
               {job.seniority}
             </span>
+            {job.stage && (
+              <>
+                <span className="hidden h-1 w-1 rounded-full bg-muted-foreground/40 sm:block" />
+                <span className="hidden font-mono text-xs text-muted-foreground/60 sm:block">
+                  {job.stage}
+                </span>
+              </>
+            )}
           </div>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             {job.description}
@@ -72,12 +88,12 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
             <MapPin className="h-3 w-3 shrink-0" />
             {job.location}
           </span>
-          {job.compensation && (
+          {job.compensation ? (
             <span className="flex items-center gap-1 font-mono text-xs text-muted-foreground">
               <DollarSign className="h-3 w-3 shrink-0" />
               {job.compensation}
             </span>
-          )}
+          ) : null}
         </div>
         <div className="mt-2 flex items-start gap-1">
           <Layers className="mt-0.5 h-3 w-3 shrink-0 text-muted-foreground/60" />
@@ -124,12 +140,12 @@ export function JobCard({ job, selected, onToggle }: JobCardProps) {
           {selected ? "✓ Interested" : "I'm interested"}
         </button>
         <a
-          href={job.roleUrl}
+          href={job.careersUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
         >
-          View role
+          View all roles
           <ArrowUpRight className="h-3 w-3" />
         </a>
       </div>
