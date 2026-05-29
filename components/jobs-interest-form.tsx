@@ -58,7 +58,7 @@ export function JobsInterestForm({ selectedJobs }: Props) {
 
       if (!res.ok || !data.ok) {
         setStatus("error");
-        setMessage(data.message ?? "Something went wrong. Please try again.");
+        setMessage(data.message ?? "Something went wrong. Please try again or message megan@infra.community.");
         setErrors(data.errors ?? {});
         return;
       }
@@ -67,7 +67,7 @@ export function JobsInterestForm({ selectedJobs }: Props) {
       setMessage("Thanks — I'll take a look and follow up if there's a strong match.");
     } catch {
       setStatus("error");
-      setMessage("Something interrupted the submission. Please try again.");
+      setMessage("Something interrupted the submission. Please try again or message megan@infra.community.");
     }
   }
 
